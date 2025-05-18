@@ -16,10 +16,11 @@ connectCloudinary()
 // middlewares
 app.use(express.json())
 app.use(cors({credentials: true, origin: '*'}))
+app.use(express.urlencoded({ extended: true }));
 
 
 // API endpoints
-app.use('/api/blog', blogRouter)
+app.use('/api/blogs', blogRouter)
 app.use('/api/user', userRouter)
 
 app.get('/', (req, res) => {

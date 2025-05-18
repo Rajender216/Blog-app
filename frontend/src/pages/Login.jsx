@@ -1,8 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const AuthPage = () => {
+  const navigate = useNavigate();
   const [isSignup, setIsSignup] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -29,17 +31,16 @@ const AuthPage = () => {
         formData
       );
 
-      // Save token in localStorage
-      console.log(res.data);
       localStorage.setItem("token", res.data.token);
       if (res.data.success) {
+        {
+          isSignup ? setIsSignup(true) : navigate("/");
+        }
         toast(`${isSignup ? "Registered" : "Logged in"} successfully!`);
-      }else{
+      } else {
         toast(res.data.message);
       }
 
-      // Redirect to dashboard/home if needed
-      // window.location.href = "/dashboard";
     } catch (err) {
       toast(err.response?.data?.message || "Authentication failed");
     }

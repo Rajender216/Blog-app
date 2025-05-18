@@ -1,20 +1,38 @@
-import { useState } from "react";
+import { useContext } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import BlogEditor from "./pages/BlogEditor";
+import Home from "./pages/Home";
+import UserProfile from "./pages/UserProfile";
+import BlogDetailPage from "./pages/BlogDetailPage";
+import { BlogContext } from "./context/BlogContext";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const { token } = useContext(BlogContext);
 
   return (
     <>
       <Toaster />
-      <Navbar />
+      <Navbar  isAuthenticated={token}/>
       <Routes>
-        <Route path="/" element={<h1>Home</h1>} />
+        <Route path="/" element={<Home />} />
         <Route path="/register" element={<Login />} />
+
+        {token && (
+          <>
+            <Route path="/create-blog" element={<BlogEditor />} />
+            <Route path="/blogs/:id" element={<BlogDetailPage />} />
+            <Route path="/editor/:id" element={<BlogEditor />} />
+            <Route path="/user-profile" element={<UserProfile />} />
+            <Route
+              path="/edit-blog/:id"
+              element={<BlogEditor isEdit={true} />}
+            />
+          </>
+        )}
       </Routes>
       <Footer />
     </>

@@ -7,6 +7,10 @@ const blogSchema = new mongoose.Schema({
     ref: "User",      // Reference to the user who created the blog
     required: true,
   },
+  authorName: {
+    type: String,
+    required: true,
+  },
 
   title: {
     type: String,

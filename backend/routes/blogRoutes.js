@@ -1,19 +1,32 @@
-// Sample API Specifications:
-// Method Endpoint Description
-// POST /api/blogs/save-draft Save or update a draft
-// POST /api/blogs/publish Save and publish an article
-// GET /api/blogs Retrieve all blogs
-// GET /api/blogs/:id Retrieve a blog by ID
-
-import express from 'express';
-import { saveDraft, publishBlog, getAllBlogs, getBlogById } from '../controllers/blogControllers.js';
-import  authenticateUser  from '../middlewares/authMiddleware.js';
-
+import express from "express";
+import {
+  saveDraft,
+  publishBlog,
+  getAllBlogs,
+  getBlogById,
+  getUserBlogs,
+  deleteBlog,
+} from "../controllers/blogControllers.js";
+import authenticateUser from "../middlewares/authMiddleware.js";
+import upload from "../middlewares/multer.js";
 const blogRouter = express.Router();
 
-blogRouter.post('/save-draft', authenticateUser, saveDraft);
-blogRouter.post('/publish', authenticateUser, publishBlog);
-blogRouter.get('/', getAllBlogs);
-blogRouter.get('/:id', getBlogById);
+blogRouter.post(
+  "/save-draft",
+  authenticateUser,
+  upload.single("image"),
+  saveDraft
+);
+blogRouter.post(
+  "/publish",
+  authenticateUser,
+  upload.single("image"),
+  publishBlog
+);
+blogRouter.get("/user-blogs", authenticateUser, getUserBlogs);
+blogRouter.get("/", getAllBlogs);
+blogRouter.get("/:id", getBlogById);
+blogRouter.get("/user-blogs/:id", authenticateUser, getBlogById);
+blogRouter.delete("/delete/:id", authenticateUser, deleteBlog);
 
 export default blogRouter;
