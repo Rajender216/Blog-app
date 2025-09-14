@@ -3,6 +3,7 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
+import { BlogContext } from "../context/BlogContext";
 
 const BlogDetailPage = () => {
   const { id } = useParams();
