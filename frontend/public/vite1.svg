@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-labelledby="titleDesc2" width="200" height="200">
+  <title id="titleDesc2">Blogify emblem</title>
+  <desc>Round emblem with stylized B and pencil stroke for Blogify.</desc>
+
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="92" fill="#0546D2" />
+
+  <!-- Pencil stroke (decorative) -->
+  <path d="M50 140 L95 95 L130 130" fill="none" stroke="#FF7A18" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+
+  <!-- Big B letter -->
+  <text x="100" y="108" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="72" font-weight="700" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">B</text>
+
+  <!-- small label under emblem inside circle -->
+  <text x="100" y="168" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="14" fill="#E8F0FF" text-anchor="middle">Blogify</text>
+</svg>
