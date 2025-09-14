@@ -1,5 +1,5 @@
 // pages/BlogDetail.jsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
@@ -9,11 +9,12 @@ const BlogDetailPage = () => {
   const navigate = useNavigate();
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { backendUrl } = useContext(BlogContext);
 
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/api/blogs/${id}`);
+        const res = await axios.get(`${backendUrl}/api/blogs/${id}`);
         setBlog(res.data);
         setLoading(false);
       } catch (error) {
@@ -25,19 +26,29 @@ const BlogDetailPage = () => {
     fetchBlog();
   }, [id]);
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
-  if (!blog) return <div className="min-h-screen flex items-center justify-center">Blog not found</div>;
+  if (loading)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Loading...
+      </div>
+    );
+  if (!blog)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Blog not found
+      </div>
+    );
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <button 
+      <button
         onClick={() => navigate(-1)}
         className="flex items-center text-blue-600 mb-6"
       >
         <FiArrowLeft className="mr-2" />
         Back to Blogs
       </button>
-      
+
       <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
         {blog.mediaUrl && (
           <img
@@ -49,11 +60,13 @@ const BlogDetailPage = () => {
         <div className="p-6">
           <h1 className="text-3xl font-bold mb-4">{blog.title}</h1>
           <div className="flex items-center mb-6">
-            <span className={`px-3 py-1 rounded-full text-sm ${
-              blog.status === 'published' 
-                ? 'bg-green-100 text-green-800' 
-                : 'bg-yellow-100 text-yellow-800'
-            }`}>
+            <span
+              className={`px-3 py-1 rounded-full text-sm ${
+                blog.status === "published"
+                  ? "bg-green-100 text-green-800"
+                  : "bg-yellow-100 text-yellow-800"
+              }`}
+            >
               {blog.status.toUpperCase()}
             </span>
             <span className="text-gray-500 text-sm ml-4">
